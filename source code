@@ -1,0 +1,134 @@
+import tkinter as tk
+import pygame
+
+def home_page():
+    delete_page()
+    home_frame = tk.Frame(main_frame)
+    lb = tk.Label(home_frame, text='Careful Cows (The Sound Board)', font=('Arial', 30))
+    lb.pack()
+    home_frame.pack(pady=20)
+
+def free_page():
+    delete_page()
+    free_frame = tk.Frame(main_frame)
+    lb = tk.Label(free_frame, text='Free Page', font=('Bold', 30))
+    lb.pack()
+    free_frame.pack(pady=20)
+
+    btn1 = tk.Button(free_frame, text="MOOO", font=('Arial', 18), command=lambda: play("mmmoooo"))
+    btn1.pack()
+
+    btn2 = tk.Button(free_frame, text="Mmmruuu", font=('Arial', 18), command=lambda: play("mmruu"))
+    btn2.pack()
+
+    btn3 = tk.Button(free_frame, text="MMMRUUUooo", font=('Arial', 18), command=lambda: play("mrruooo"))
+    btn3.pack()
+
+    btn4 = tk.Button(free_frame, text="mmmmmooooooo", font=('Arial', 18), command=lambda: play("mooooo"))
+    btn4.pack()
+
+    btn5 = tk.Button(free_frame, text="mooo moooo moooo", font=('Arial', 18), command=lambda: play("3 cows mooing"))
+    btn5.pack()
+
+    btn6 = tk.Button(free_frame, text="mruuuuOOOUUU", font=('Arial', 18), command=lambda: play("mruuuuOOOUUU"))
+    btn6.pack()
+
+def paid_page():
+    delete_page()
+    paid_frame = tk.Frame(main_frame)
+    lb = tk.Label(paid_frame, text='Paid Page', font=('Bold', 30))
+    lb.pack()
+    paid_frame.pack(pady=20)
+
+    btn1 = tk.Button(paid_frame, text="your girlfriend look like my mom", font=('Arial', 18), command=lambda: play("your_gf_look_like_my_mom"))
+    btn1.pack()
+
+    btn2 = tk.Button(paid_frame, text="Sahad BRO", font=('Arial', 18), command=lambda: play("bro"))
+    btn2.pack()
+
+    btn3 = tk.Button(paid_frame, text="Laughing", font=('Arial', 18), command=lambda: play("audience"))
+    btn3.pack()
+
+    btn4 = tk.Button(paid_frame, text="UR TROLLING yeison", font=('Arial', 18), command=lambda: play("ur trolling"))
+    btn4.pack()
+
+    btn5 = tk.Button(paid_frame, text="Knocking Door", font=('Arial', 18), command=lambda: play("door knocking"))
+    btn5.pack()
+
+    btn6 = tk.Button(paid_frame, text="Snoring", font=('Arial', 18), command=lambda: play("snoring"))
+    btn6.pack()
+
+def info_page():
+    delete_page()
+    info_frame = tk.Frame(main_frame)
+    lb = tk.Label(info_frame, text='Info Page | made by ye tested by sahad', font=('Bold', 30))
+    lb.pack()
+    info_frame.pack(pady=20)
+
+def delete_page():
+    for widget in main_frame.winfo_children():
+        widget.destroy()
+
+def indicate(lb, page):
+    hide_indicators()
+    lb.config(bg='#158aff')
+    delete_page()
+    page()
+
+def hide_indicators():
+    home_indicate.config(bg='#ADD8E6')
+    free_indicate.config(bg='#ADD8E6')
+    paid_indicate.config(bg='#ADD8E6')
+    info_indicate.config(bg='#ADD8E6')
+
+def play(filename): 
+    pygame.mixer.music.load(f"{filename}.mp3")
+    pygame.mixer.music.play(loops=0)
+
+root = tk.Tk()
+root.geometry("800x500")
+root.title("Careful Cows")
+root.resizable(False, False)
+
+pygame.mixer.init()
+
+options_frame = tk.Frame(root, bg='#ADD8E6')
+
+home_btn = tk.Button(options_frame, text='Home', font=('Bold', 15),
+                     fg='#158aff', bd=0, bg='#ADD8E6',
+                     command=lambda: indicate(home_indicate, home_page))
+home_btn.place(x=10, y=50)
+home_indicate = tk.Label(options_frame, text='', bg='#ADD8E6')
+home_indicate.place(x=3, y=50, width=5, height=40)
+
+free_btn = tk.Button(options_frame, text='Free', font=('Bold', 15),
+                     fg='#158aff', bd=0, bg='#ADD8E6',
+                     command=lambda: indicate(free_indicate, free_page))
+free_btn.place(x=10, y=100)
+free_indicate = tk.Label(options_frame, text='', bg='#ADD8E6')
+free_indicate.place(x=3, y=100, width=5, height=40)
+
+paid_btn = tk.Button(options_frame, text='Paid', font=('Bold', 15),
+                     fg='#158aff', bd=0, bg='#ADD8E6',
+                     command=lambda: indicate(paid_indicate, paid_page))
+paid_btn.place(x=10, y=150)
+paid_indicate = tk.Label(options_frame, text='', bg='#ADD8E6')
+paid_indicate.place(x=3, y=150, width=5, height=40)
+
+info_btn = tk.Button(options_frame, text='Info', font=('Bold', 15),
+                     fg='#158aff', bd=0, bg='#ADD8E6',
+                     command=lambda: indicate(info_indicate, info_page))
+info_btn.place(x=10, y=200)
+info_indicate = tk.Label(options_frame, text='', bg='#ADD8E6')
+info_indicate.place(x=3, y=200, width=5, height=40)
+
+options_frame.pack(side=tk.LEFT)
+options_frame.configure(width=100, height=500)
+
+main_frame = tk.Frame(root, highlightbackground='black', highlightthickness=2)
+main_frame.pack(side=tk.LEFT)
+main_frame.configure(height=400, width=500)
+
+textbox = tk.Text()
+
+root.mainloop()
